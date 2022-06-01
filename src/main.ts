@@ -5,14 +5,28 @@ import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/exceptions/http-exception.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
+  // app.init();
+  // app.use((req, res, next) => {
+  //   res.header('Access-Control-Allow-Origin', '*');
+  //   res.header(
+  //     'Access-Control-Allow-Headers',
+  //     'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+  //   );
+  //   if (req.method == 'OPTIONS') {
+  //     res.header(
+  //       'Access-Control-Allow-Methods',
+  //       'PUT, POST, PATCH, DELETE, GET',
+  //     );
+  //     return res.status(200).json({});
+  //   }
+
+  //   next();
+  // });
 
   app.enableCors({
-    allowedHeaders:
-      'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe',
-    origin: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
+    origin: true,
   });
 
   app.useGlobalPipes(new ValidationPipe()); //* 스키마 등록하는거 class validator 사용가능해짐

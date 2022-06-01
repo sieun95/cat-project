@@ -11,7 +11,7 @@ export class CatsRepository {
 
   async existsByEmail(email: string): Promise<boolean> {
     const result = await this.catModel.exists({ email });
-    return;
+    return result;
   }
 
   async create(cat: CatRequestDto): Promise<Cat> {
